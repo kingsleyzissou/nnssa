@@ -1,2 +1,4 @@
 downloads/*
 transformed/*
+.vscode/*
+.DS_Store
