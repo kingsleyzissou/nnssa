@@ -1,3 +1,5 @@
+import numpy as np
+
 def reshape(label, feature_shape, sr, hop_length):
     """
     Helper function that helps reshape the 
@@ -19,7 +21,8 @@ def reshape(label, feature_shape, sr, hop_length):
             ## convert label time to integer which is the
             ## index in the labels vector
             label_time = int(np.round(l*time))
-            if(point < len(label_vector)):
+            if(label_time < len(label_vector)):
                 ## set the index of the label vector to one
                 ## indicating a boundary
                 label_vector[label_time] = 1
+    return label_vector
