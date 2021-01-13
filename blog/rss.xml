@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+    <channel>
+        <title>NNSSA Blog</title>
+        <link>https://kingsleyzissou.github.io/nssa/blog</link>
+        <description>NNSSA Blog</description>
+        <lastBuildDate>Tue, 12 Jan 2021 00:00:00 GMT</lastBuildDate>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+        <generator>https://github.com/jpmonette/feed</generator>
+        <item>
+            <title><![CDATA[Welcome]]></title>
+            <link>https://kingsleyzissou.github.io/nssa/blog/welcome</link>
+            <guid>welcome</guid>
+            <pubDate>Tue, 12 Jan 2021 00:00:00 GMT</pubDate>
+            <description><![CDATA[I am currently studying a BSc (Hons) Applied Computing (Multimedia Development). This website will be a showcase for my final year project. My selected topic is music boundary detection using neural networks.]]></description>
+        </item>
+    </channel>
+</rss>

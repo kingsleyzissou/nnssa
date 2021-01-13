@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://kingsleyzissou.github.io/nssa/blog</id>
+    <title>NNSSA Blog</title>
+    <updated>2021-01-12T00:00:00.000Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://kingsleyzissou.github.io/nssa/blog"/>
+    <subtitle>NNSSA Blog</subtitle>
+    <icon>https://kingsleyzissou.github.io/nssa/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[Welcome]]></title>
+        <id>welcome</id>
+        <link href="https://kingsleyzissou.github.io/nssa/blog/welcome"/>
+        <updated>2021-01-12T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[I am currently studying a BSc (Hons) Applied Computing (Multimedia Development). This website will be a showcase for my final year project. My selected topic is music boundary detection using neural networks.]]></summary>
+    </entry>
+</feed>
