@@ -20,6 +20,7 @@ module.exports = {
       'neural',
       'cnn'
     ],
-    'Analysis': ['compression-analysis']
+    'Analysis': ['compression-analysis'],
+    'References': ['references']
   },
 };
