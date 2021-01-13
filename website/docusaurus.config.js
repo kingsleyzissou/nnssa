@@ -7,7 +7,7 @@ module.exports = {
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
   organizationName: 'kingsleyzissou', // Usually your GitHub org/user name.
-  projectName: 'kingsleyzissou.github.io', // Usually your repo name.
+  projectName: 'nnssa', // Usually your repo name.
   themeConfig: {
     navbar: {
       title: 'NNSSA',
