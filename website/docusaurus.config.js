@@ -2,7 +2,7 @@ module.exports = {
   title: 'NNSSA',
   tagline: 'Neural Network Based Song Structure Analysis',
   url: 'https://kingsleyzissou.github.io/nssa/',
-  baseUrl: '/',
+  baseUrl: '/nnssa/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
