@@ -145,3 +145,5 @@ transformed/*
 dumps/*
 spectrograms/*
 datasets/*
+data/*
+models/*
