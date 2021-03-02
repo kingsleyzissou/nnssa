@@ -35,11 +35,11 @@ def get_label_indices(labels):
     return keys
 
 if __name__ == "__main__":
-    feature_list = pd.read_pickle('dumps/sal_fifty/features_normalized.p')
-    preds = pickle.load(open('dumps/sal_fifty/preds.p', 'rb'))
-    x_test = pickle.load(open('dumps/sal_fifty/x_test.p', 'rb'))
-    y_test = pickle.load(open('dumps/sal_fifty/y_test.p', 'rb'))
-    idx_test = pickle.load(open('dumps/sal_fifty/idx_test.p', 'rb'))
+    feature_list = pd.read_pickle('dumps/bars/features_normalized.p')
+    preds = pickle.load(open('dumps/bars/preds.p', 'rb'))
+    x_test = pickle.load(open('dumps/bars/x_test.p', 'rb'))
+    y_test = pickle.load(open('dumps/bars/y_test.p', 'rb'))
+    idx_test = pickle.load(open('dumps/bars/idx_test.p', 'rb'))
 
     preds = np.reshape(preds, len(preds))
 
@@ -50,9 +50,14 @@ if __name__ == "__main__":
     f_score, precision, recall = [], [], []
 
     for _, item in df.iterrows():
+        bpm = item["bpm"]
+        bps = bpm / 60
+        # window = (1 / bps) * 8
+        window = 3
+        
         p = np.asarray(preds[idx_test == item["id"]])
         y = np.asarray(y_test[idx_test == item["id"]])
-        p = np.asarray([1 if x > 0.25 else 0 for x in p])
+        # p = np.asarray([1 if x > 0.25 else 0 for x in p])
 
         segments = item["segments"]
 
@@ -60,6 +65,10 @@ if __name__ == "__main__":
 
         p = post_processing(p)
         peaks = peakutils.indexes(p, min_dist=6, thres=0.05)
+
+        # if (bars):
+            # print("Bar index: ", peaks)
+        peaks = [(p * 4) for p in peaks if (p * 4) < len(beat_times)]
 
         beats = beat_times[peaks]
 
