@@ -140,10 +140,8 @@ cython_debug/
 .DS_Store
 .DS_Store?
 
-downloads/*
-transformed/*
-dumps/*
-spectrograms/*
-datasets/*
-data/*
+data/**/*.mp3
+data/**/*.txt
+data/**/*.npy
+
 models/*
