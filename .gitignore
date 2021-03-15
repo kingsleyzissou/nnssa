@@ -141,6 +141,7 @@ cython_debug/
 .DS_Store?
 
 data/**/*.mp3
+data/**/*.wav
 data/**/*.txt
 data/**/*.npy
 
