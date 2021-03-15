@@ -141,7 +141,11 @@ cython_debug/
 .DS_Store?
 
 data/**/*.mp3
+data/**/*.wav
 data/**/*.txt
 data/**/*.npy
+
+# Files are too large
+data/05_Sub_Divisions/*
 
 models/*
