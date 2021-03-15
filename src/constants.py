@@ -20,6 +20,7 @@ HARMONIX_LABELS = os.path.join(ANNOTATIONS_DIR, 'harmonix')
 HARMONIX_BEATS = os.path.join(BEATS_DIR, 'harmonix')
 HARMONIX_MELS = os.path.join(MELS_DIR, 'harmonix')
 
+# Salami dataset
 SALAMI = os.path.join(METADATA_DIR, 'salami.csv')
 SALAMI_LABELS = os.path.join(ANNOTATIONS_DIR, 'salami')
 SALAMI_BEATS = os.path.join(BEATS_DIR, 'salami')
