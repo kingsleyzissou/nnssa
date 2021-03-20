@@ -9,6 +9,6 @@ setup(
     author_email='20079110@mail.wit.ie',
     license='unlicense',
     packages=['nnssa'],
-    package_dir={'nnssa', 'src/'},
+    package_dir={'nnssa': 'src/'},
     zip_safe=False
 )
