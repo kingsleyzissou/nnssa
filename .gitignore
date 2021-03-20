@@ -146,7 +146,3 @@ data/**/*.txt
 data/**/*.npy
 
 models/*
-
-_client/*
-client/*
-archive/*
