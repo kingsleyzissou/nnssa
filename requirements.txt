@@ -1,14 +1,18 @@
 appdirs==1.4.4
 audioread==2.1.9
 autopep8==1.5.6
+boto3==1.17.33
+botocore==1.20.33
 certifi==2020.12.5
 cffi==1.14.5
 chardet==4.0.0
 decorator==4.4.2
 idna==2.10
+jmespath==0.10.0
 joblib==1.0.1
 librosa==0.8.0
 llvmlite==0.36.0
+nnssa==git+ssh://git@github.com/kingsleyzissou/nnssa.git
 numba==0.53.0
 numpy==1.20.1
 packaging==20.9
@@ -21,6 +25,7 @@ python-dateutil==2.8.1
 pytz==2021.1
 requests==2.25.1
 resampy==0.2.2
+s3transfer==0.3.6
 scikit-learn==0.24.1
 scipy==1.6.1
 six==1.15.0
@@ -29,4 +34,5 @@ SoundFile==0.10.3.post1
 threadpoolctl==2.1.0
 toml==0.10.2
 urllib3==1.26.4
+uuid==1.30
 youtube-dl==2021.3.14
