@@ -1,0 +1,41 @@
+service: serverless
+
+frameworkVersion: "2"
+
+provider:
+  name: aws
+  lambdaHashingVersion: 20201221
+  region: eu-west-1
+  stage: dev
+
+iamRoleStatements:
+  - Effect: "Allow"
+    Action:
+      - "s3:PutObject"
+    Resource:
+      Fn::Join:
+        - ""
+        - - "arn:aws:s3:::"
+          - "Ref": "nnssa-songs"
+          - "/*"
+
+functions:
+  hello:
+    runtime: python3.8
+    events:
+      - http:
+          method: get
+          path: greet
+          cors: true
+    handler: src/services/handler.hello
+  upload:
+    runtime: nodejs12.x
+    events:
+      - http:
+          method: post
+          path: upload
+          cors: true
+    handler: src/api/upload.upload
+
+plugins:
+  - serverless-offline
