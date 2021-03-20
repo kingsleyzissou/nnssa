@@ -1,21 +1,20 @@
 'use strict';
 
-const AWS = require('aws-sdk');
+const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
+const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
 
-AWS.config.update({
+const client = new S3Client({
   region: 'eu-west-1'
 });
 
-const s3 = new AWS.S3();
-
 const getPresignedUploadUrl = async (bucket, directory, filename) => {
   const key = `${directory}/${filename}`;
-  return s3
-    .getSignedUrl('putObject', {
-      Bucket: bucket,
-      Key: key,
-      ContentType: 'audio/mp3',
-    });
+  const command = new PutObjectCommand({
+    Bucket: bucket,
+    Key: key,
+    ContentType: 'audio/mp3',
+  });
+  return getSignedUrl(client, command, { expiresIn: 3600 });
 }
 
 const sendResponse = (statusCode, body, callback) => {
