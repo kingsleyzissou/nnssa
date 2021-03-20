@@ -8,6 +8,7 @@ setup(
     author='Gianluca Zuccarelli',
     author_email='20079110@mail.wit.ie',
     license='unlicense',
-    packages=['src'],
+    packages=['nnssa'],
+    package_dir={'nnssa', 'src/'}
     zip_safe=False
 )
