@@ -1,0 +1,107 @@
+service: nnssa
+
+frameworkVersion: "2"
+
+provider:
+  name: aws
+  runtime: python3.7
+  lambdaHashingVersion: 20201221
+  region: eu-west-1
+  stage: dev
+  iam:
+    role:
+      statements:
+        - Effect: "Allow"
+          Action:
+            - "s3:GetObject"
+            - "s3:PutObject"
+          Resource: "arn:aws:s3:::nnssa-songs"
+
+functions:
+  transform:
+    events:
+      - s3:
+          bucket: nnssa-songs
+          event: s3:ObjectCreated:*
+          rules:
+            - prefix: songs/
+          existing: true
+    timeout: 30
+    handler: src/services/transform.transform
+    environment: # Service wide environment variables
+      MNT_DIR: ${self:custom.localMountPath}
+    vpc:
+      securityGroupIds:
+        - ${self:custom.securityGroup}
+      subnetIds:
+        - ${self:custom.subnetsId}
+    layers:
+      - arn:aws:lambda:eu-west-1:785963298336:layer:libsndfilePython37:1
+      - arn:aws:lambda:eu-west-1:785963298336:layer:ffmpegPython37:1
+  predict:
+    timeout: 30
+    handler: src/services/predict.predict
+    environment: # Service wide environment variables
+      MNT_DIR: ${self:custom.localMountPath}
+    vpc:
+      securityGroupIds:
+        - ${self:custom.securityGroup}
+      subnetIds:
+        - ${self:custom.subnetsId}
+  post:
+    timeout: 30
+    handler: src/services/post.post
+    environment: # Service wide environment variables
+      MNT_DIR: ${self:custom.localMountPath}
+    vpc:
+      securityGroupIds:
+        - ${self:custom.securityGroup}
+      subnetIds:
+        - ${self:custom.subnetsId}
+  upload:
+    runtime: nodejs12.x
+    events:
+      - http:
+          method: post
+          path: upload
+          cors: true
+    handler: src/api/upload.upload
+
+package:
+  individually: true
+  exclude:
+    - node_modules/**
+    - venv/**
+    - .vscode/**
+    - .serverless/**
+    - .pytest_cache/**
+    - __pychache__/**
+
+custom:
+  bucketName: nnssa-songs
+  efsAccessPoint: arn:aws:elasticfilesystem:eu-west-1:785963298336:access-point/fsap-065b8c81f6ce7a91f
+  localMountPath: /mnt/access
+  subnetsId: subnet-a7091cc1
+  securityGroup: sg-03b82e00393071834
+
+resources:
+  extensions:
+    TransformLambdaFunction:
+      Properties:
+        FileSystemConfigs:
+          - Arn: "${self:custom.efsAccessPoint}"
+            LocalMountPath: "${self:custom.localMountPath}"
+    PredictLambdaFunction:
+      Properties:
+        FileSystemConfigs:
+          - Arn: "${self:custom.efsAccessPoint}"
+            LocalMountPath: "${self:custom.localMountPath}"
+    PostLambdaFunction:
+      Properties:
+        FileSystemConfigs:
+          - Arn: "${self:custom.efsAccessPoint}"
+            LocalMountPath: "${self:custom.localMountPath}"
+
+plugins:
+  - serverless-offline
+  - serverless-step-functions

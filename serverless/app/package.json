@@ -1,11 +1,12 @@
 {
   "dependencies": {
-    "serverless-python-requirements": "^5.1.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@aws-sdk/client-s3": "^3.9.0",
     "@aws-sdk/s3-request-presigner": "^3.9.0",
-    "serverless-offline": "^6.8.0"
+    "serverless-offline": "^6.8.0",
+    "serverless-python-requirements": "^5.1.0",
+    "serverless-step-functions": "^2.29.0"
   }
 }
