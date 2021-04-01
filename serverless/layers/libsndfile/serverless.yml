@@ -1,0 +1,14 @@
+service: libsndfile-layer
+
+frameworkVersion: "2"
+
+provider:
+  name: aws
+  region: eu-west-1
+
+layers:
+  libsndfilePython37:
+    path: layer
+    compatibleRuntimes:
+      - python3.7
+    description: "libsndfile dependency"
