@@ -15,18 +15,13 @@ provider:
           Action:
             - "s3:GetObject"
             - "s3:PutObject"
-          Resource: "arn:aws:s3:::nnssa-songs"
+            - "states:StartExecution"
+          Resource: "*"
 
 functions:
   transform:
-    events:
-      - s3:
-          bucket: nnssa-songs
-          event: s3:ObjectCreated:*
-          rules:
-            - prefix: songs/
-          existing: true
-    timeout: 30
+    timeout: 60
+    memorySize: 2048
     handler: src/services/transform.transform
     environment: # Service wide environment variables
       MNT_DIR: ${self:custom.localMountPath}
@@ -58,6 +53,18 @@ functions:
         - ${self:custom.securityGroup}
       subnetIds:
         - ${self:custom.subnetsId}
+  start:
+    runtime: nodejs12.x
+    events:
+      - s3:
+          bucket: nnssa-songs
+          event: s3:ObjectCreated:*
+          rules:
+            - prefix: songs/
+          existing: true
+    environment:
+      statemachine_arn: ${self:resources.Outputs.PredictionPipeline.Value}
+    handler: src/api/start.start
   upload:
     runtime: nodejs12.x
     events:
@@ -84,7 +91,24 @@ custom:
   subnetsId: subnet-a7091cc1
   securityGroup: sg-03b82e00393071834
 
+stepFunctions:
+  validate: true
+  stateMachines:
+    predictionPipeline:
+      name: predictionPipeline
+      definition: ${file(./stepFunctions.yml)}
+      loggingConfig:
+        level: ERROR
+        includeExecutionData: true
+        destinations:
+          - arn:aws:logs:eu-west-1:785963298336:log-group:statemachine:*
+
 resources:
+  Outputs:
+    PredictionPipeline:
+      Description: The prediction pipeline statemachine
+      Value:
+        Ref: PredictionPipeline
   extensions:
     TransformLambdaFunction:
       Properties:

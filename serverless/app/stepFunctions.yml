@@ -1,0 +1,27 @@
+Comment: Prediction pipeline
+StartAt: Transform
+States:
+  Transform:
+    Type: Task
+    Resource: arn:aws:states:::lambda:invoke
+    Parameters:
+      FunctionName: arn:aws:lambda:eu-west-1:785963298336:function:nnssa-dev-transform:$LATEST
+      Payload:
+        Input.$: "$"
+    Next: Predict
+  Predict:
+    Type: Task
+    Resource: arn:aws:states:::lambda:invoke
+    Parameters:
+      FunctionName: arn:aws:lambda:eu-west-1:785963298336:function:nnssa-dev-predict:$LATEST
+      Payload:
+        Input.$: "$"
+    Next: Post
+  Post:
+    Type: Task
+    Resource: arn:aws:states:::lambda:invoke
+    Parameters:
+      FunctionName: arn:aws:lambda:eu-west-1:785963298336:function:nnssa-dev-post:$LATEST
+      Payload:
+        Input.$: "$"
+    End: true
