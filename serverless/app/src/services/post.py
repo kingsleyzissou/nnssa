@@ -9,18 +9,19 @@ sys.path.append('/mnt/access/pkgs')
 import numpy as np
 
 def post(event, context):
-    # get event
-    filename = 'billionaire.pkl'
-
-    data = pickle.load(open('/mnt/access/data/pre_processing/' + filename, 'rb'))
-    preds = np.load('/mnt/access/data/predictions/billionaire.npy')
+    # get payload
+    payload = event['Input']['Payload']
     
-    beat_times = data['times']
+    with open(payload['path'], 'rb') as f:
+      data = pickle.load(f)
 
+    preds = np.load(payload['predictions'])
     preds = np.asarray([1 if x > 0.95 else 0 for x in preds])
-    pred_sections = (np.where(preds == 1)[0]) * 4
-    pred_sections = [p for p in pred_sections if p < len(beat_times)]
-    sections = beat_times[pred_sections]
+  
+    sections = (np.where(preds == 1)[0]) * 4
+    sections = [p for p in sections if p < len(data['times'])]
+    sections = data['times'][sections]
     
-    path = '/mnt/access/data/results/billionaire.npy'
+    filename = payload['filename']
+    path = f'/mnt/access/data/results/{filename}.npy'
     np.save(path, sections)

@@ -9,19 +9,21 @@ sys.path.append('/mnt/access/pkgs')
 import tensorflow as tf
 import numpy as np
 
-def predict(data, context):
-    # get event
-    filename = 'billionaire.pkl'
+def predict(event, context):
+    # get payload
+    payload = event['Input']['Payload']
 
-    # data = pickle.load(open('/mnt/access/data/pre_processing/' + filename, 'rb'))
+    with open(payload['path'], 'rb') as f:
+      data = pickle.load(f)
 
+    # build model
     model = tf.keras.models.load_model('/mnt/access/model/binary_model.h5')
+    # make predictions
     predictions = model.predict(data['melspec'])
+    
+    filename = payload['filename']
+    path = f'/mnt/access/data/predictions/{filename}.npy'
+    np.save(path, predictions)
 
-    # filename = filename.split('.')[0] + '.npy'
-    # path = '/mnt/access/data/predictions/' + filename
-    # np.save(path, preds)
-    return {
-      *data,
-      'predictions': predictions
-    }
+    payload['predictions'] = path
+    return payload

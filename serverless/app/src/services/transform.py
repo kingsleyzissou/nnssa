@@ -14,9 +14,6 @@ from nnssa.sub_divisions import create_spec_windows, normalize
 
 s3 = boto3.client('s3')
 
-BUCKET_NAME = "nnssa-songs"
-PRE_PROCESS_DIR = "pre_processing"
-
 def pre_process(path):
     y, _ = librosa.load(path, sr=SR)
     tempo, beats = librosa.beat.beat_track(y, sr=SR)
@@ -25,25 +22,38 @@ def pre_process(path):
     sync = librosa.util.sync(melspec, beats)
     melspec = create_spec_windows(melspec, 8, 4)
     melspec = normalize(melspec)
-    return {
+    return melspec, beats, times, tempo
+
+
+def transform(event, context):
+    # get S3 uploaded file
+    bucket = event['Input']['bucket']
+    key = event['Input']['key']
+    songname = key.split('/')[1]
+    filename = songname.split('.')[0]
+
+    # download the item from the bucket
+    temp = '/tmp/' + songname
+    s3.download_file(bucket, key, temp)
+
+    # process the song and
+    # get bar subdivisions
+    melspec, beats, times, tempo = pre_process(temp)
+
+    path = f'/mnt/access/data/decoded/{filename}.pkl'
+
+    with open(path, 'wb') as f:
+      pickle.dump({
+        'songname': songname,
+        'filename': filename,
         'melspec': melspec,
         'beats': beats,
         'times': times,
         'tempo': tempo
+      }, f)
+
+    return {
+      'songname': songname,
+      'filename': filename,
+      'path': path
     }
-
-
-def transform(event, context):
-    # get event
-    key = event['Records'][0]['s3']['object']['key']
-    filename = key.split('/')[1]
-
-    temp = '/mnt/access/data/song/' + filename
-    s3.download_file(BUCKET_NAME, key, temp)
-    
-    data = pre_process(temp)
-
-    # filename = filename.split('.')[0] + '.pkl'
-    # path = '/mnt/access/data/pre_processing/' + filename
-    # pickle.dump(data, open(path, 'wb'))
-    return data
