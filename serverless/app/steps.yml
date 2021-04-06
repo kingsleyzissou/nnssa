@@ -1,0 +1,63 @@
+Comment: Prediction pipeline
+StartAt: Transform
+States:
+  Transform:
+    Type: Task
+    Resource: arn:aws:states:::lambda:invoke
+    Parameters:
+      FunctionName: arn:aws:lambda:eu-west-1:785963298336:function:nnssa-dev-transform:$LATEST
+      Payload:
+        Input.$: "$"
+    Next: Predict
+    Catch:
+      - ErrorEquals:
+          - States.ALL
+        Next: Notify:Error
+        ResultPath: "$.error"
+  Predict:
+    Type: Task
+    Resource: arn:aws:states:::lambda:invoke
+    Parameters:
+      FunctionName: arn:aws:lambda:eu-west-1:785963298336:function:nnssa-dev-predict:$LATEST
+      Payload:
+        Input.$: "$"
+    Next: Post
+    Catch:
+      - ErrorEquals:
+          - States.ALL
+        Next: Notify:Error
+        ResultPath: "$.error"
+  Post:
+    Type: Task
+    Resource: arn:aws:states:::lambda:invoke
+    Parameters:
+      FunctionName: arn:aws:lambda:eu-west-1:785963298336:function:nnssa-dev-post:$LATEST
+      Payload:
+        Input.$: "$"
+    Next: Notify:Success
+    Catch:
+      - ErrorEquals:
+          - States.ALL
+        Next: Notify:Error
+        ResultPath: "$.error"
+  Notify:Success:
+    Type: Task
+    Resource: arn:aws:states:::lambda:invoke
+    Parameters:
+      FunctionName: arn:aws:lambda:eu-west-1:785963298336:function:nnssa-dev-result:$LATEST
+      Payload:
+        Input.$: "$"
+    Catch:
+      - ErrorEquals:
+          - States.ALL
+        Next: Notify:Error
+        ResultPath: "$.error"
+    End: true
+  Notify:Error:
+    Type: Task
+    Resource: arn:aws:states:::lambda:invoke
+    Parameters:
+      FunctionName: arn:aws:lambda:eu-west-1:785963298336:function:nnssa-dev-error:$LATEST
+      Payload:
+        Input.$: "$"
+    End: true
