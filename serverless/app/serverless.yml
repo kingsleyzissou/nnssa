@@ -16,15 +16,17 @@ provider:
             - "s3:GetObject"
             - "s3:PutObject"
             - "states:StartExecution"
+            - "lambda:*"
           Resource: "*"
 
 functions:
   transform:
-    timeout: 60
+    timeout: 30
     memorySize: 2048
     handler: src/services/transform.transform
     environment: # Service wide environment variables
       MNT_DIR: ${self:custom.localMountPath}
+      NOTIFY_LAMBDA: ${self:custom.notifyLambda}
     vpc:
       securityGroupIds:
         - ${self:custom.securityGroup}
@@ -38,6 +40,7 @@ functions:
     handler: src/services/predict.predict
     environment: # Service wide environment variables
       MNT_DIR: ${self:custom.localMountPath}
+      NOTIFY_LAMBDA: ${self:custom.notifyLambda}
     vpc:
       securityGroupIds:
         - ${self:custom.securityGroup}
@@ -48,11 +51,20 @@ functions:
     handler: src/services/post.post
     environment: # Service wide environment variables
       MNT_DIR: ${self:custom.localMountPath}
+      NOTIFY_LAMBDA: ${self:custom.notifyLambda}
     vpc:
       securityGroupIds:
         - ${self:custom.securityGroup}
       subnetIds:
         - ${self:custom.subnetsId}
+  error:
+    environment:
+      NOTIFY_LAMBDA: ${self:custom.notifyLambda}
+    handler: src/services/error.handle
+  result:
+    environment:
+      NOTIFY_LAMBDA: ${self:custom.notifyLambda}
+    handler: src/services/result.handle
   start:
     runtime: nodejs12.x
     events:
@@ -73,6 +85,13 @@ functions:
           path: upload
           cors: true
     handler: src/api/upload.upload
+  notify:
+    timeout: 30
+    runtime: nodejs12.x
+    handler: src/api/notify.notify
+    environment:
+      MQTT_SERVER: ${self:custom.secrets.MQTT_SERVER}
+      MQTT_CLIENT_ID: ${self:custom.secrets.MQTT_CLIENT_ID}
 
 package:
   individually: true
@@ -83,6 +102,7 @@ package:
     - .serverless/**
     - .pytest_cache/**
     - __pychache__/**
+    - secrets.*.yml
 
 custom:
   bucketName: nnssa-songs
@@ -90,13 +110,20 @@ custom:
   localMountPath: /mnt/access
   subnetsId: subnet-a7091cc1
   securityGroup: sg-03b82e00393071834
+  vpc:
+    securityGroupIds:
+      - ${self:custom.securityGroup}
+    subnetIds:
+      - ${self:custom.subnetsId}
+  notifyLambda: arn:aws:lambda:eu-west-1:785963298336:function:nnssa-dev-notify
+  secrets: ${file(secrets.${self:provider.stage}.yml)}
 
 stepFunctions:
   validate: true
   stateMachines:
     predictionPipeline:
       name: predictionPipeline
-      definition: ${file(./stepFunctions.yml)}
+      definition: ${file(./steps.yml)}
       loggingConfig:
         level: ERROR
         includeExecutionData: true
@@ -129,3 +156,4 @@ resources:
 plugins:
   - serverless-offline
   - serverless-step-functions
+  - serverless-secrets-plugin
