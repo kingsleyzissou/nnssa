@@ -7,12 +7,12 @@ const client = new S3Client({
   region: 'eu-west-1'
 });
 
-const getPresignedUploadUrl = async (bucket, directory, filename) => {
+const getPresignedUploadUrl = async (bucket, directory, filename, mimeType) => {
   const key = `${directory}/${filename}`;
   const command = new PutObjectCommand({
     Bucket: bucket,
     Key: key,
-    ContentType: 'audio/mp3',
+    ContentType: mimeType,
   });
   return getSignedUrl(client, command, { expiresIn: 3600 });
 }
@@ -37,7 +37,7 @@ module.exports.upload = async (event, context, callback) => {
   }
 
   try {
-    const url = await getPresignedUploadUrl('nnssa-songs', 'songs', filename);
+    const url = await getPresignedUploadUrl('nnssa-songs', 'songs', filename, mimeType);
     const body = JSON.stringify({
       filename,
       mimeType,
