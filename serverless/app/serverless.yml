@@ -16,7 +16,11 @@ provider:
             - "s3:GetObject"
             - "s3:PutObject"
             - "states:StartExecution"
-            - "lambda:*"
+            - "ec2:DescribeNetworkInterfaces"
+            - "ec2:CreateNetworkInterface"
+            - "ec2:DeleteNetworkInterface"
+            - "ec2:DescribeInstances"
+            - "ec2:AttachNetworkInterface"
           Resource: "*"
 
 functions:
@@ -24,47 +28,27 @@ functions:
     timeout: 30
     memorySize: 2048
     handler: src/services/transform.transform
-    environment: # Service wide environment variables
-      MNT_DIR: ${self:custom.localMountPath}
-      NOTIFY_LAMBDA: ${self:custom.notifyLambda}
-    vpc:
-      securityGroupIds:
-        - ${self:custom.securityGroup}
-      subnetIds:
-        - ${self:custom.subnetsId}
+    environment: ${self:custom.env}
+    vpc: ${self:custom.vpc}
     layers:
       - arn:aws:lambda:eu-west-1:785963298336:layer:libsndfilePython37:1
       - arn:aws:lambda:eu-west-1:785963298336:layer:ffmpegPython37:1
   predict:
     timeout: 30
     handler: src/services/predict.predict
-    environment: # Service wide environment variables
-      MNT_DIR: ${self:custom.localMountPath}
-      NOTIFY_LAMBDA: ${self:custom.notifyLambda}
-    vpc:
-      securityGroupIds:
-        - ${self:custom.securityGroup}
-      subnetIds:
-        - ${self:custom.subnetsId}
+    environment: ${self:custom.env}
+    vpc: ${self:custom.vpc}
   post:
     timeout: 30
     handler: src/services/post.post
-    environment: # Service wide environment variables
-      MNT_DIR: ${self:custom.localMountPath}
-      NOTIFY_LAMBDA: ${self:custom.notifyLambda}
-    vpc:
-      securityGroupIds:
-        - ${self:custom.securityGroup}
-      subnetIds:
-        - ${self:custom.subnetsId}
+    environment: ${self:custom.env}
+    vpc: ${self:custom.vpc}
   error:
-    environment:
-      NOTIFY_LAMBDA: ${self:custom.notifyLambda}
-    handler: src/services/error.handle
-  result:
-    environment:
-      NOTIFY_LAMBDA: ${self:custom.notifyLambda}
-    handler: src/services/result.handle
+    environment: ${self:custom.env}
+    handler: src/api/error.error
+  success:
+    environment: ${self:custom.env}
+    handler: src/api/success.success
   start:
     runtime: nodejs12.x
     events:
@@ -89,12 +73,9 @@ functions:
     timeout: 30
     runtime: nodejs12.x
     handler: src/api/notify.notify
-    environment:
-      MQTT_SERVER: ${self:custom.secrets.MQTT_SERVER}
-      MQTT_CLIENT_ID: ${self:custom.secrets.MQTT_CLIENT_ID}
+    environment: ${self:custom.env}
 
 package:
-  individually: true
   exclude:
     - node_modules/**
     - venv/**
@@ -117,6 +98,11 @@ custom:
       - ${self:custom.subnetsId}
   notifyLambda: arn:aws:lambda:eu-west-1:785963298336:function:nnssa-dev-notify
   secrets: ${file(secrets.${self:provider.stage}.yml)}
+  env:
+    MQTT_HOST: ${self:custom.secrets.MQTT_HOST}
+    MQTT_PORT: ${self:custom.secrets.MQTT_PORT}
+    MQTT_USERNAME: ${self:custom.secrets.MQTT_USERNAME}
+    MQTT_PASSWORD: ${self:custom.secrets.MQTT_PASSWORD}
 
 stepFunctions:
   validate: true
