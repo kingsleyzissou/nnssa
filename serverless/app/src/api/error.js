@@ -18,7 +18,7 @@ const environment = () => ({
 
 module.exports.error = async (event) => {
   const client = await connect(environment());
-  const payload = JSON.parse(event.Input.Payload);
+  const payload = event.Input.Payload;
   const filename = payload.filename;
   const topic = `nnssa/${filename}`;
   client.publish(topic, JSON.stringify({

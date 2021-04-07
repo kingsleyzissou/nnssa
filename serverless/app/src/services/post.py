@@ -15,7 +15,7 @@ def get_client():
   host = os.environ['MQTT_HOST']
   username = os.environ['MQTT_USERNAME']
   password = os.environ['MQTT_PASSWORD']
-  port = os.environ['MQTT_PORT']
+  port = int(os.environ['MQTT_PORT'])
   client_id = 'nnssa-predict'
   return connect(host, client_id, username, password, port)
 
@@ -53,7 +53,7 @@ def post(event, context):
   # get payload
   payload = event['Input']['Payload']
   filename = payload['filename']
-  # emit_update(filename)
+  emit_update(filename)
   
   data, preds = load_data(payload)
   preds = np.asarray([1 if x > 0.95 else 0 for x in preds])

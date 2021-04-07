@@ -16,13 +16,13 @@ def get_client():
   host = os.environ['MQTT_HOST']
   username = os.environ['MQTT_USERNAME']
   password = os.environ['MQTT_PASSWORD']
-  port = os.environ['MQTT_PORT']
+  port = int(os.environ['MQTT_PORT'])
   client_id = 'nnssa-predict'
   return connect(host, client_id, username, password, port)
 
 def emit_update(filename):
   client = get_client()
-  client.invoke(f'nnssa/{filename}', json.dumps({
+  client.publish(f'nnssa/{filename}', json.dumps({
     'statusCode': 200,
     'message': 'Making prediction',
     'data': {
@@ -31,7 +31,7 @@ def emit_update(filename):
       'filename': filename,
       'results': None
     }
-  })
+  }))
 
 def load_data(path):
   with open(path, 'rb') as f:
@@ -47,7 +47,7 @@ def predict(event, context):
   # get payload
   payload = event['Input']['Payload']
   filename = payload['filename']
-  # emit_update(filename)
+  emit_update(filename)
 
   data = load_data(payload['path'])
   # build model

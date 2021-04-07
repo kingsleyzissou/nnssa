@@ -21,7 +21,7 @@ def get_client():
   host = os.environ['MQTT_HOST']
   username = os.environ['MQTT_USERNAME']
   password = os.environ['MQTT_PASSWORD']
-  port = os.environ['MQTT_PORT']
+  port = int(os.environ['MQTT_PORT'])
   client_id = 'nnssa-transform'
   return connect(host, client_id, username, password, port)
 
@@ -75,7 +75,6 @@ def transform(event, context):
     key = event['Input']['key']
     songname = key.split('/')[1]
     filename = songname.split('.')[0]
-
     emit_update(filename)
 
     temp = download_song(songname, bucket, key)

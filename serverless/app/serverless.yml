@@ -35,6 +35,7 @@ functions:
       - arn:aws:lambda:eu-west-1:785963298336:layer:ffmpegPython37:1
   predict:
     timeout: 30
+    memorySize: 2048
     handler: src/services/predict.predict
     environment: ${self:custom.env}
     vpc: ${self:custom.vpc}
@@ -44,9 +45,11 @@ functions:
     environment: ${self:custom.env}
     vpc: ${self:custom.vpc}
   error:
+    runtime: nodejs12.x
     environment: ${self:custom.env}
     handler: src/api/error.error
   success:
+    runtime: nodejs12.x
     environment: ${self:custom.env}
     handler: src/api/success.success
   start:
@@ -69,11 +72,6 @@ functions:
           path: upload
           cors: true
     handler: src/api/upload.upload
-  notify:
-    timeout: 30
-    runtime: nodejs12.x
-    handler: src/api/notify.notify
-    environment: ${self:custom.env}
 
 package:
   exclude:
@@ -96,7 +94,6 @@ custom:
       - ${self:custom.securityGroup}
     subnetIds:
       - ${self:custom.subnetsId}
-  notifyLambda: arn:aws:lambda:eu-west-1:785963298336:function:nnssa-dev-notify
   secrets: ${file(secrets.${self:provider.stage}.yml)}
   env:
     MQTT_HOST: ${self:custom.secrets.MQTT_HOST}
