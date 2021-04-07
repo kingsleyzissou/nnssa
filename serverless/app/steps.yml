@@ -44,7 +44,7 @@ States:
     Type: Task
     Resource: arn:aws:states:::lambda:invoke
     Parameters:
-      FunctionName: arn:aws:lambda:eu-west-1:785963298336:function:nnssa-dev-result:$LATEST
+      FunctionName: arn:aws:lambda:eu-west-1:785963298336:function:nnssa-dev-success:$LATEST
       Payload:
         Input.$: "$"
     Catch:
