@@ -10,28 +10,33 @@ sys.path.append('/mnt/access/pkgs')
 
 import librosa
 from nnssa.constants import SR
+from nnssa.mqtt import connect
 from nnssa.spectrograms import extract_melspecs
 from nnssa.sub_divisions import create_spec_windows, normalize
 
 s3 = boto3.client('s3')
 
+
+def get_client():
+  host = os.environ['MQTT_HOST']
+  username = os.environ['MQTT_USERNAME']
+  password = os.environ['MQTT_PASSWORD']
+  port = os.environ['MQTT_PORT']
+  client_id = 'nnssa-transform'
+  return connect(host, client_id, username, password, port)
+
 def emit_update(filename):
-  ## TODO add this to package
-  client = boto3.client('lambda')
-  client.invoke(
-    FunctionName = os.environ['NOTIFY_LAMBDA'],
-    InvocationType = 'Event',
-    Payload = json.dumps({
-      'statusCode': 200,
-      'message': 'Decoding audio',
-      'data': {
-        'status': 'decoding',
-        'step': [1, 4],
-        'filename': filename,
-        'results': None
-      }
-    })
-  )
+  client = get_client()
+  client.publish(f'nnssa/{filename}', json.dumps({
+    'statusCode': 200,
+    'message': 'Decoding audio',
+    'data': {
+      'status': 'decoding',
+      'step': [1, 4],
+      'filename': filename,
+      'results': None
+    }
+  }))
 
 def pre_process(path):
   # process the song and
@@ -71,7 +76,7 @@ def transform(event, context):
     songname = key.split('/')[1]
     filename = songname.split('.')[0]
 
-    # emit_update(filename)
+    emit_update(filename)
 
     temp = download_song(songname, bucket, key)
     melspec, beats, times, tempo = pre_process(temp)

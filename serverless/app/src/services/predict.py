@@ -8,26 +8,30 @@ import boto3
 ## to import the next dependencies
 sys.path.append('/mnt/access/pkgs')
 
+from nnssa.mqtt import connect
 import tensorflow as tf
 import numpy as np
 
+def get_client():
+  host = os.environ['MQTT_HOST']
+  username = os.environ['MQTT_USERNAME']
+  password = os.environ['MQTT_PASSWORD']
+  port = os.environ['MQTT_PORT']
+  client_id = 'nnssa-predict'
+  return connect(host, client_id, username, password, port)
+
 def emit_update(filename):
-  ## TODO add this to package
-  client = boto3.client('lambda')
-  client.invoke(
-    FunctionName = os.environ['NOTIFY_LAMBDA'],
-    InvocationType = 'Event',
-    Payload = json.dumps({
-      'statusCode': 200,
-      'message': 'Making prediction',
-      'data': {
-        'status': 'predicting',
-        'step': [2, 4],
-        'filename': filename,
-        'results': None
-      }
-    })
-  )
+  client = get_client()
+  client.invoke(f'nnssa/{filename}', json.dumps({
+    'statusCode': 200,
+    'message': 'Making prediction',
+    'data': {
+      'status': 'predicting',
+      'step': [2, 4],
+      'filename': filename,
+      'results': None
+    }
+  })
 
 def load_data(path):
   with open(path, 'rb') as f:
