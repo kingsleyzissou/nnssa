@@ -49,13 +49,13 @@ functions:
     environment: ${self:custom.env}
     handler: src/api/error.error
     layers:
-      - arn:aws:lambda:eu-west-1:785963298336:layer:mqttNodejs:2
+      - arn:aws:lambda:eu-west-1:785963298336:layer:mqttNodejs:3
   success:
     runtime: nodejs12.x
     environment: ${self:custom.env}
     handler: src/api/success.success
     layers:
-      - arn:aws:lambda:eu-west-1:785963298336:layer:mqttNodejs:2
+      - arn:aws:lambda:eu-west-1:785963298336:layer:mqttNodejs:3
   start:
     runtime: nodejs12.x
     events:
