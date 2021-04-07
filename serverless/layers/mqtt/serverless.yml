@@ -10,5 +10,5 @@ layers:
   mqttNodejs:
     path: layer
     compatibleRuntimes:
-      - python3.7
+      - nodejs12.x
     description: "Mqtt dependencies"
