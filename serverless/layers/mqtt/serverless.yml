@@ -1,0 +1,14 @@
+service: mqtt-layer
+
+frameworkVersion: "2"
+
+provider:
+  name: aws
+  region: eu-west-1
+
+layers:
+  mqttNodejs:
+    path: layer
+    compatibleRuntimes:
+      - python3.7
+    description: "Mqtt dependencies"
