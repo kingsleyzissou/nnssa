@@ -1,4 +1,5 @@
 'use strict';
+const path = require('path');
 const mqtt = require('mqtt');
 
 const connect = ({ host, clientId, username, password, port }) => {
@@ -16,10 +17,16 @@ const environment = () => ({
   clientId: 'nnssa-error'
 });
 
+const getFilename = (payload, key) => {
+  if (payload && payload.filename) return payload.filename;
+  const { name } = path.parse(key);
+  return name;
+}
+
 module.exports.error = async (event) => {
   const client = await connect(environment());
-  const payload = event.Input.Payload;
-  const filename = payload.filename;
+  const { Payload, key } = event.Input;
+  const filename = getFilename(Payload, key);
   const topic = `nnssa/${filename}`;
   client.publish(topic, JSON.stringify({
     'statusCode': 500,

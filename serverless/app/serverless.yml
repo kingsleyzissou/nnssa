@@ -48,10 +48,14 @@ functions:
     runtime: nodejs12.x
     environment: ${self:custom.env}
     handler: src/api/error.error
+    layers:
+      - arn:aws:lambda:eu-west-1:785963298336:layer:mqttNodejs:2
   success:
     runtime: nodejs12.x
     environment: ${self:custom.env}
     handler: src/api/success.success
+    layers:
+      - arn:aws:lambda:eu-west-1:785963298336:layer:mqttNodejs:2
   start:
     runtime: nodejs12.x
     events:
@@ -72,6 +76,8 @@ functions:
           path: upload
           cors: true
     handler: src/api/upload.upload
+    layers:
+      - arn:aws:lambda:eu-west-1:785963298336:layer:aswSdkNodejs:3
 
 package:
   exclude:
