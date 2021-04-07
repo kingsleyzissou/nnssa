@@ -73,8 +73,8 @@ def transform(event, context):
     # get S3 uploaded file
     bucket = event['Input']['bucket']
     key = event['Input']['key']
-    songname = key.split('/')[1]
-    filename = songname.split('.')[0]
+    songname = os.path.basename(key)
+    filename, _ = os.path.splitext(songname)
     emit_update(filename)
 
     temp = download_song(songname, bucket, key)

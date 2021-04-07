@@ -1,0 +1,14 @@
+service: aws-sdk-layer
+
+frameworkVersion: "2"
+
+provider:
+  name: aws
+  region: eu-west-1
+
+layers:
+  aswSdkNodejs:
+    path: layer
+    compatibleRuntimes:
+      - nodejs12.x
+    description: "Aws sdk dependencies"

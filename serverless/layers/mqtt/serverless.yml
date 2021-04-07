@@ -1,0 +1,14 @@
+service: mqtt-layer
+
+frameworkVersion: "2"
+
+provider:
+  name: aws
+  region: eu-west-1
+
+layers:
+  mqttNodejs:
+    path: layer
+    compatibleRuntimes:
+      - nodejs12.x
+    description: "Mqtt dependencies"
