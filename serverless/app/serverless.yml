@@ -24,9 +24,27 @@ provider:
           Resource: "*"
 
 functions:
+  decode:
+    timeout: 30
+    memorySize: 4096
+    handler: src/services/decode.decode
+    environment: ${self:custom.env}
+    vpc: ${self:custom.vpc}
+    layers:
+      - arn:aws:lambda:eu-west-1:785963298336:layer:libsndfilePython37:1
+      - arn:aws:lambda:eu-west-1:785963298336:layer:ffmpegPython37:1
+  analyse:
+    timeout: 30
+    memorySize: 4096
+    handler: src/services/analyse.analyse
+    environment: ${self:custom.env}
+    vpc: ${self:custom.vpc}
+    layers:
+      - arn:aws:lambda:eu-west-1:785963298336:layer:libsndfilePython37:1
+      - arn:aws:lambda:eu-west-1:785963298336:layer:ffmpegPython37:1
   transform:
     timeout: 30
-    memorySize: 2048
+    memorySize: 4096
     handler: src/services/transform.transform
     environment: ${self:custom.env}
     vpc: ${self:custom.vpc}
@@ -126,6 +144,16 @@ resources:
       Value:
         Ref: PredictionPipeline
   extensions:
+    DecodeLambdaFunction:
+      Properties:
+        FileSystemConfigs:
+          - Arn: "${self:custom.efsAccessPoint}"
+            LocalMountPath: "${self:custom.localMountPath}"
+    AnalyseLambdaFunction:
+      Properties:
+        FileSystemConfigs:
+          - Arn: "${self:custom.efsAccessPoint}"
+            LocalMountPath: "${self:custom.localMountPath}"
     TransformLambdaFunction:
       Properties:
         FileSystemConfigs:

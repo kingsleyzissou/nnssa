@@ -14,6 +14,7 @@ const getPresignedUploadUrl = async (bucket, directory, filename, mime) => {
     Bucket: bucket,
     Key: key,
     ContentType: mime,
+    ACL: 'public-read',
   });
   return getSignedUrl(client, command, { expiresIn: 3600 });
 }
