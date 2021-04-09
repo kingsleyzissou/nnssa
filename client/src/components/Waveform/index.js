@@ -4,7 +4,8 @@ import Markers from 'wavesurfer.js/dist/plugin/wavesurfer.markers';
 import styled from 'styled-components';
 import { Button } from 'reactstrap';
 
-import { markers } from '../../variables/constants';
+import xhr from '../../config/xhr';
+import { useCreateMarkers } from '../../hooks/createMarkers';
 
 const Wave = styled.div`
   width: '100%';
@@ -12,11 +13,12 @@ const Wave = styled.div`
   position: 'relative';
 `;
 
-export function WaveForm() {
+export function WaveForm({ url, result }) {
 
   const waveform = useRef(null);
   const wavesurfer = useRef(null);
   const [playing, setPlaying] = useState(false);
+  const createMarkers = useCreateMarkers();
 
   const create = useCallback(() => {
     wavesurfer.current = WaveSurfer.create({
@@ -25,14 +27,16 @@ export function WaveForm() {
       barWidth: 2,
       barHeight: 1,
       barGap: null,
-      plugins: [Markers.create({ markers: [] })]
+      plugins: [Markers.create({ markers: [] })],
+      xhr,
     });
   }, [wavesurfer])
 
-  const load = useCallback(() => {
+  const load = useCallback(async () => {
+    wavesurfer.current.load(url);
+    const markers = createMarkers(result);
     markers.forEach(marker => wavesurfer.current.addMarker(marker));
-    wavesurfer.current.load('/0024_billionaire.wav');
-  }, [wavesurfer]);
+  }, [wavesurfer, url, result, createMarkers]);
 
   useEffect(() => {
     if (waveform && waveform.current) {
@@ -46,11 +50,11 @@ export function WaveForm() {
     }
   }, [wavesurfer, load])
 
-  const togglePlayer = () => {
+  const togglePlayer = useCallback(() => {
     const action = playing ? 'pause' : 'play';
     wavesurfer.current[action]()
     setPlaying(!playing)
-  }
+  }, [wavesurfer, playing, setPlaying])
 
   return (
     <>
