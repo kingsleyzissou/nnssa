@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useRef } from 'react';
 import mqtt from 'mqtt';
 
 const host = process.env.REACT_APP_MQTT_HOST;
@@ -31,7 +31,6 @@ export function useSubscribeToTopic() {
   const unsubscribe = useCallback((topic) => {
     if (client.current) {
       client.current.unsubscribe(topic);
-      client.current.disconnect();
     }
   }, [client]);
 
@@ -40,14 +39,6 @@ export function useSubscribeToTopic() {
       client.current.on('message', callback);
     }
   }, [client]);
-
-  useEffect(() => {
-    return () => {
-      if (client.current) {
-        client.current.disconnect();
-      }
-    }
-  }, [client])
 
   return { subscribe, unsubscribe, onMessage };
 }
