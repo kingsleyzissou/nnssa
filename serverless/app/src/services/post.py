@@ -23,10 +23,10 @@ def emit_update(filename):
   client = get_client()
   client.publish(f'nnssa/{filename}', json.dumps({
     'statusCode': 200,
-    'message': 'Processing predictions',
+    'message': 'Processing predictions and calculating onset times',
     'data': {
-      'status': 'processing',
-      'step': [3, 4],
+      'status': 'Processing',
+      'step': [6, 7],
       'filename': filename,
       'results': None
     }
@@ -59,5 +59,12 @@ def post(event, context):
   preds = np.asarray([1 if x > 0.95 else 0 for x in preds])
   sections = calculate_sections(preds, data['times'])
   save_results(filename, sections)
-  payload['result'] = sections.tolist()
-  return payload
+  return {
+    **payload,
+    'result': sections.tolist(),
+    'title': str(data['title']),
+    'artist': str(data['artist']),
+    'album': str(data['album']),
+    'tempo': data['tempo'],
+    'key': data['key']
+  }

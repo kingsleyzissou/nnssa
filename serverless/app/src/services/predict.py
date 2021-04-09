@@ -24,10 +24,10 @@ def emit_update(filename):
   client = get_client()
   client.publish(f'nnssa/{filename}', json.dumps({
     'statusCode': 200,
-    'message': 'Making prediction',
+    'message': 'Calculating song boundary predictions',
     'data': {
-      'status': 'predicting',
-      'step': [2, 4],
+      'status': 'Predicting',
+      'step': [5, 7],
       'filename': filename,
       'results': None
     }

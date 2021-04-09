@@ -25,10 +25,11 @@ module.exports.success = async (event) => {
     'statusCode': 200,
     'message': 'Prediction complete',
     'data': {
-      'status': 'complete',
-      'step': [4, 4],
+      'status': 'Complete',
+      'step': [7, 7],
       'filename': filename,
-      'result': payload.result
+      'url': `http://s3-eu-west-1.amazonaws.com/nnssa-songs/${payload.key}`,
+      ...payload
     }
   }))
 }
