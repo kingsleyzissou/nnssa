@@ -8,14 +8,18 @@ import './assets/demo/demo.css';
 import './assets/css/nucleo-icons.css';
 import './assets/css/nucleo-public.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import './index.css';
 
 import App from './App';
 import { ThemeContextWrapper } from './contexts/ThemeContext';
+import { NotificationContextWrapper } from './contexts/NotificationContext';
 
 ReactDOM.render(
   <ThemeContextWrapper>
-    <App />
+    <NotificationContextWrapper>
+      <App />
+    </NotificationContextWrapper>
   </ThemeContextWrapper>,
   document.getElementById('root')
 );
