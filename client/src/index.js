@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom';
 
 import reportWebVitals from './reportWebVitals';
 
-import './assets/scss/black-dashboard-react.scss';
-import './assets/demo/demo.css';
-import './assets/css/nucleo-icons.css';
-import './assets/css/nucleo-public.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+import './assets/css/black-dashboard-react.min.css';
+import './assets/demo/demo.min.css';
+import './assets/css/nucleo-icons.min.css';
+import './assets/css/nucleo-public.min.css';
 import './index.css';
 
 import App from './App';
