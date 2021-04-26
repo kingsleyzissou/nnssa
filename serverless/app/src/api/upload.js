@@ -1,5 +1,5 @@
 'use strict';
-
+const { v1: uuid1 } = require('uuid');
 const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
 const path = require('path');
@@ -33,7 +33,9 @@ const sendResponse = (statusCode, body, callback) => {
 module.exports.upload = async (event, context, callback) => {
   const body = JSON.parse(event.body);
   const mime = body.type;
-  const { name: songname, base: filename } = path.parse(body.name);
+  const { ext } = path.parse(body.name);
+  const uuid = uuid1();
+  const filename = uuid + '' + ext;
 
   if (!mime.startsWith('audio/')) {
     console.error('Validation Failed');
@@ -47,7 +49,7 @@ module.exports.upload = async (event, context, callback) => {
       filename,
       mime,
       url,
-      topic: `nnssa/${songname}`,
+      topic: `nnssa/${uuid}`,
       message: 'Successfully generated pre-signed S3 upload url'
     });
     sendResponse(200, body, callback);
