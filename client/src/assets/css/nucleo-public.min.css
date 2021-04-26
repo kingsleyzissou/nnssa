@@ -1,32 +1,23 @@
-/*--------------------------------
-
-nc-demo_outline Web Font - built using nucleoapp.com
-License - nucleoapp.com/license/
-
--------------------------------- */
 @font-face {
-  font-family: 'nc-demo_outline';
-  src: url('../fonts/nc-demo_outline.eot');
-  src: url('../fonts/nc-demo_outline.eot') format('embedded-opentype'), url('../fonts/nc-demo_outline.woff2') format('woff2'), url('../fonts/nc-demo_outline.woff') format('woff'), url('../fonts/nc-demo_outline.ttf') format('truetype'), url('../fonts/nc-demo_outline.svg') format('svg');
-  font-weight: normal;
+  font-family: nc-demo_outline;
+  src: url(../fonts/nc-demo_outline.eot);
+  src: url(../fonts/nc-demo_outline.eot) format("embedded-opentype"),
+    url(../fonts/nc-demo_outline.woff2) format("woff2"),
+    url(../fonts/nc-demo_outline.woff) format("woff"),
+    url(../fonts/nc-demo_outline.ttf) format("truetype"),
+    url(../fonts/nc-demo_outline.svg) format("svg");
+  font-weight: 400;
   font-style: normal;
 }
-/*------------------------
-	base class definition
--------------------------*/
 .nc-icon {
   display: inline-block;
-  font: normal normal normal 14px/1 'nc-demo_outline';
+  font: normal normal normal 14px/1 nc-demo_outline;
   font-size: inherit;
   speak: none;
   text-transform: none;
-  /* Better Font Rendering */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-/*------------------------
-  change icon size
--------------------------*/
 .nc-icon.lg {
   font-size: 1.33333333em;
   vertical-align: -16%;
@@ -37,11 +28,8 @@ License - nucleoapp.com/license/
 .nc-icon.x3 {
   font-size: 3em;
 }
-/*----------------------------------
-  add a square/circle background
------------------------------------*/
-.nc-icon.square,
-.nc-icon.circle {
+.nc-icon.circle,
+.nc-icon.square {
   padding: 0.33333333em;
   vertical-align: -16%;
   background-color: #eee;
@@ -49,9 +37,6 @@ License - nucleoapp.com/license/
 .nc-icon.circle {
   border-radius: 50%;
 }
-/*------------------------
-  list icons
--------------------------*/
 .nc-icon-ul {
   padding-left: 0;
   margin-left: 2.14285714em;
@@ -75,9 +60,6 @@ License - nucleoapp.com/license/
   top: -0.19047619em;
   left: -1.9047619em;
 }
-/*------------------------
-  spinning icons
--------------------------*/
 .nc-icon.spin {
   -webkit-animation: nc-icon-spin 2s infinite linear;
   -moz-animation: nc-icon-spin 2s infinite linear;
@@ -85,7 +67,7 @@ License - nucleoapp.com/license/
 }
 @-webkit-keyframes nc-icon-spin {
   0% {
-    -webkit-transform: rotate(0deg);
+    -webkit-transform: rotate(0);
   }
   100% {
     -webkit-transform: rotate(360deg);
@@ -93,7 +75,7 @@ License - nucleoapp.com/license/
 }
 @-moz-keyframes nc-icon-spin {
   0% {
-    -moz-transform: rotate(0deg);
+    -moz-transform: rotate(0);
   }
   100% {
     -moz-transform: rotate(360deg);
@@ -101,11 +83,11 @@ License - nucleoapp.com/license/
 }
 @keyframes nc-icon-spin {
   0% {
-    -webkit-transform: rotate(0deg);
-    -moz-transform: rotate(0deg);
-    -ms-transform: rotate(0deg);
-    -o-transform: rotate(0deg);
-    transform: rotate(0deg);
+    -webkit-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -ms-transform: rotate(0);
+    -o-transform: rotate(0);
+    transform: rotate(0);
   }
   100% {
     -webkit-transform: rotate(360deg);
@@ -115,11 +97,7 @@ License - nucleoapp.com/license/
     transform: rotate(360deg);
   }
 }
-/*------------------------
-  rotated/flipped icons
--------------------------*/
 .nc-icon.rotate-90 {
-  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
   -webkit-transform: rotate(90deg);
   -moz-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
@@ -127,7 +105,6 @@ License - nucleoapp.com/license/
   transform: rotate(90deg);
 }
 .nc-icon.rotate-180 {
-  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
   -webkit-transform: rotate(180deg);
   -moz-transform: rotate(180deg);
   -ms-transform: rotate(180deg);
@@ -135,7 +112,6 @@ License - nucleoapp.com/license/
   transform: rotate(180deg);
 }
 .nc-icon.rotate-270 {
-  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
   -webkit-transform: rotate(270deg);
   -moz-transform: rotate(270deg);
   -ms-transform: rotate(270deg);
@@ -143,7 +119,6 @@ License - nucleoapp.com/license/
   transform: rotate(270deg);
 }
 .nc-icon.flip-y {
-  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=0);
   -webkit-transform: scale(-1, 1);
   -moz-transform: scale(-1, 1);
   -ms-transform: scale(-1, 1);
@@ -151,256 +126,189 @@ License - nucleoapp.com/license/
   transform: scale(-1, 1);
 }
 .nc-icon.flip-x {
-  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
   -webkit-transform: scale(1, -1);
   -moz-transform: scale(1, -1);
   -ms-transform: scale(1, -1);
   -o-transform: scale(1, -1);
   transform: scale(1, -1);
 }
-/*------------------------
-	font icons
--------------------------*/
-
 .nc-archive-2::before {
-    content: "\ea01";
+  content: "\ea01";
 }
-
 .nc-archive-paper::before {
-    content: "\ea02";
+  content: "\ea02";
 }
-
 .nc-award-48::before {
-    content: "\ea03";
+  content: "\ea03";
 }
-
 .nc-badge-13::before {
-    content: "\ea04";
+  content: "\ea04";
 }
-
 .nc-bag-09::before {
-    content: "\ea05";
+  content: "\ea05";
 }
-
 .nc-barcode-qr::before {
-    content: "\ea06";
+  content: "\ea06";
 }
-
 .nc-bear-2::before {
-    content: "\ea07";
+  content: "\ea07";
 }
-
 .nc-bell-53::before {
-    content: "\ea08";
+  content: "\ea08";
 }
-
 .nc-bookmark-2::before {
-    content: "\ea09";
+  content: "\ea09";
 }
-
 .nc-briefcase-24::before {
-    content: "\ea0a";
+  content: "\ea0a";
 }
-
 .nc-calendar-60::before {
-    content: "\ea0b";
+  content: "\ea0b";
 }
-
 .nc-camera-20::before {
-    content: "\ea0c";
+  content: "\ea0c";
 }
-
 .nc-cart-simple::before {
-    content: "\ea0d";
+  content: "\ea0d";
 }
-
 .nc-chat-46::before {
-    content: "\ea0e";
+  content: "\ea0e";
 }
-
 .nc-check-circle-07::before {
-    content: "\ea0f";
+  content: "\ea0f";
 }
-
 .nc-cloud-26::before {
-    content: "\ea10";
+  content: "\ea10";
 }
-
 .nc-compass-05::before {
-    content: "\ea11";
+  content: "\ea11";
 }
-
 .nc-dashboard-level::before {
-    content: "\ea12";
+  content: "\ea12";
 }
-
 .nc-diamond::before {
-    content: "\ea13";
+  content: "\ea13";
 }
-
 .nc-edit-78::before {
-    content: "\ea14";
+  content: "\ea14";
 }
-
 .nc-email-84::before {
-    content: "\ea15";
+  content: "\ea15";
 }
-
 .nc-eye-19::before {
-    content: "\ea16";
+  content: "\ea16";
 }
-
 .nc-favourite-31::before {
-    content: "\ea17";
+  content: "\ea17";
 }
-
 .nc-flag-points-32::before {
-    content: "\ea18";
+  content: "\ea18";
 }
-
 .nc-flash-21::before {
-    content: "\ea19";
+  content: "\ea19";
 }
-
 .nc-folder-15::before {
-    content: "\ea1a";
+  content: "\ea1a";
 }
-
 .nc-gift-2::before {
-    content: "\ea1b";
+  content: "\ea1b";
 }
-
 .nc-grid-45::before {
-    content: "\ea1c";
+  content: "\ea1c";
 }
-
 .nc-handout::before {
-    content: "\ea1d";
+  content: "\ea1d";
 }
-
 .nc-heart-2::before {
-    content: "\ea1e";
+  content: "\ea1e";
 }
-
 .nc-home-52::before {
-    content: "\ea1f";
+  content: "\ea1f";
 }
-
 .nc-image::before {
-    content: "\ea20";
+  content: "\ea20";
 }
-
 .nc-key-25::before {
-    content: "\ea21";
+  content: "\ea21";
 }
-
 .nc-layers-3::before {
-    content: "\ea22";
+  content: "\ea22";
 }
-
 .nc-like-2::before {
-    content: "\ea23";
+  content: "\ea23";
 }
-
 .nc-link-72::before {
-    content: "\ea24";
+  content: "\ea24";
 }
-
 .nc-lock-open::before {
-    content: "\ea25";
+  content: "\ea25";
 }
-
 .nc-lock::before {
-    content: "\ea26";
+  content: "\ea26";
 }
-
 .nc-multiple-11::before {
-    content: "\ea27";
+  content: "\ea27";
 }
-
 .nc-notes::before {
-    content: "\ea28";
+  content: "\ea28";
 }
-
 .nc-pencil::before {
-    content: "\ea29";
+  content: "\ea29";
 }
-
 .nc-phone-2::before {
-    content: "\ea2a";
+  content: "\ea2a";
 }
-
 .nc-preferences::before {
-    content: "\ea2b";
+  content: "\ea2b";
 }
-
 .nc-send-2::before {
-    content: "\ea2c";
+  content: "\ea2c";
 }
-
 .nc-settings-gear-63::before {
-    content: "\ea2d";
+  content: "\ea2d";
 }
-
 .nc-single-01::before {
-    content: "\ea2e";
+  content: "\ea2e";
 }
-
 .nc-single-folded-content::before {
-    content: "\ea2f";
+  content: "\ea2f";
 }
-
 .nc-skull-2::before {
-    content: "\ea30";
+  content: "\ea30";
 }
-
 .nc-spaceship::before {
-    content: "\ea31";
+  content: "\ea31";
 }
-
 .nc-square-download::before {
-    content: "\ea32";
+  content: "\ea32";
 }
-
 .nc-square-upload::before {
-    content: "\ea34";
+  content: "\ea34";
 }
-
 .nc-support-16::before {
-    content: "\ea33";
+  content: "\ea33";
 }
-
 .nc-trash-simple::before {
-    content: "\ea35";
+  content: "\ea35";
 }
-
 .nc-turtle::before {
-    content: "\ea36";
+  content: "\ea36";
 }
-
 .nc-vector::before {
-    content: "\ea37";
+  content: "\ea37";
 }
-
 .nc-video-66::before {
-    content: "\ea38";
+  content: "\ea38";
 }
-
 .nc-wallet-43::before {
-    content: "\ea39";
+  content: "\ea39";
 }
-
 .nc-widget::before {
-    content: "\ea3a";
+  content: "\ea3a";
 }
-
 .nc-world::before {
-    content: "\ea3b";
+  content: "\ea3b";
 }
-
 .nc-zoom-2::before {
-    content: "\ea3c";
+  content: "\ea3c";
 }
-
-
-/* all icon font classes list here */
