@@ -17,7 +17,7 @@ const style = {
 export default function App() {
   return (
     <div style={style}>
-      <div style={{ display: 'block', width: '50%' }}>
+      <div style={{ display: 'block', width: '60%' }}>
         <Router>
           <Switch>
             <Route path="/player">
