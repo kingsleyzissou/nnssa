@@ -29,9 +29,9 @@ export function Landing() {
 
   return (
     <Layout
-      title="Title"
-      subtitle="Lorem ipsum"
-      text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
+      title="NNSSA"
+      subtitle="Welcome"
+      text="NNSSA is a convolutional neural network based algortithm that aims to predict \n the transition points, or boundaries, in a song. Upload a song on the dropzone below"
       Component={() => (
         <Dropzone
           loading={loading}

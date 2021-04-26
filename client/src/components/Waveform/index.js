@@ -28,6 +28,7 @@ export function WaveForm({ url, result }) {
       barHeight: 1,
       barGap: null,
       plugins: [Markers.create({ markers: [] })],
+      hideScrollbar: true,
       xhr,
     });
   }, [wavesurfer])

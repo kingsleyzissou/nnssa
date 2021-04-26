@@ -6,10 +6,15 @@ export function Player() {
 
   const history = useHistory();
 
-  const {
+  let {
     title, artist, album,
     tempo, url, result
   } = history.location.state;
+
+  title = title ? title : 'Untitled';
+  artist = artist ? artist : 'Unknown Artist';
+  album = album ? album : 'Unknown Album';
+  tempo = tempo ? tempo : 0;
 
   const bpm = Math.round(tempo, 0) + ' bpm';
 
