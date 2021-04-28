@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='nnssa',
-    version='0.0.1',
+    version='0.1.1',
     description='My private package from private github repo',
     url='git@github.com:kingsleyzissou/nnssa.git',
     author='Gianluca Zuccarelli',
