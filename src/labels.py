@@ -31,7 +31,7 @@ TRANSITION = [
        'prechorus3', 'prechorus5', 'prechrous', 'interlude', 'pre-verse', 'post-chorus', 'pre-chorus',
 ]
 OUTRO = ['outro', 'outro1', 'outro2', 'outro3', 'bigoutro', 'outroa', 'vocaloutro', 'coda']
-SILENCE = ['break', 'silence', 'bre', 'break1', 'break2', 'break3']
+BREAK = ['break', 'bre', 'break1', 'break2', 'break3']
 LIVE = ['applause', 'crowd_sounds', 'spoken_voice', 'stage_sounds', 'stage_speaking', 'voice']
 
 def clean_sections(section):
@@ -43,7 +43,7 @@ def clean_sections(section):
     if section in VERSE: return 'verse'
     if section in SOLO: return 'solo/instrumental'
     if section in OUTRO: return 'outro'
-    if section in SILENCE: return 'silence'
+    if section in BREAK: return 'break'
     if section in LIVE: return 'live'
     return 'other'
 
