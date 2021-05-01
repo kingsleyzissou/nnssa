@@ -3,7 +3,7 @@ import classNames from "classnames";
 import {
   Button,
   Collapse,
-  InputGroup,
+  CustomInput,
   NavbarBrand,
   Navbar,
   NavLink,
@@ -11,7 +11,6 @@ import {
   NavItem,
   Container,
   NavbarToggler,
-  CustomInput,
 } from "reactstrap";
 import { ThemeContext } from '../../contexts/ThemeContext';
 
