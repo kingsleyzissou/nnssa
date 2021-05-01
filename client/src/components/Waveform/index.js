@@ -1,11 +1,13 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState, useContext } from 'react';
 import WaveSurfer from 'wavesurfer.js';
 import Markers from 'wavesurfer.js/dist/plugin/wavesurfer.markers';
 import styled from 'styled-components';
+import classNames from 'classnames';
 import { Button } from 'reactstrap';
 
 import xhr from '../../config/xhr';
 import { useCreateMarkers } from '../../hooks/createMarkers';
+import { ThemeContext } from '../../contexts/ThemeContext';
 
 const Wave = styled.div`
   width: '100%';
@@ -19,6 +21,7 @@ export function WaveForm({ url, result }) {
   const wavesurfer = useRef(null);
   const [playing, setPlaying] = useState(false);
   const createMarkers = useCreateMarkers();
+  const { theme } = useContext(ThemeContext);
 
   const create = useCallback(() => {
     wavesurfer.current = WaveSurfer.create({
@@ -60,7 +63,14 @@ export function WaveForm({ url, result }) {
   return (
     <>
       <Wave ref={waveform} id="waveform" />
-      <Button color="primary" onClick={togglePlayer}>
+      <Button
+        className='mt-4'
+        color={classNames({
+          'primary': (theme === ''),
+          'success': (theme !== '')
+        })}
+        onClick={togglePlayer}
+      >
         {
           playing
             ? 'Pause'
