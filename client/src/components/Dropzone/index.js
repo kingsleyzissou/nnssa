@@ -2,12 +2,14 @@ import React, { useCallback, useContext } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { Button } from 'reactstrap';
 import { useHistory } from 'react-router';
+import classNames from 'classnames';
 
 import { DropContainer, ParentContainer } from './styled';
 import { useGetPresignedUrl } from '../../hooks/getPresignedUrl';
 import { useUploadFile } from '../../hooks/uploadFile';
 import { useSubscribeToTopic } from '../../hooks/subscribeToTopic';
 import { NotificationContext } from '../../contexts/NotificationContext';
+import { ThemeContext } from '../../contexts/ThemeContext';
 
 export function Dropzone({ toggleLoading, loading, setLoading }) {
 
@@ -16,6 +18,7 @@ export function Dropzone({ toggleLoading, loading, setLoading }) {
   const history = useHistory();
   const { onMessage, subscribe, unsubscribe } = useSubscribeToTopic();
   const { notify } = useContext(NotificationContext);
+  const { theme } = useContext(ThemeContext);
 
   const handleResult = useCallback((message, type, topic) => {
     notify({ type, message });
@@ -67,9 +70,31 @@ export function Dropzone({ toggleLoading, loading, setLoading }) {
     <ParentContainer {...getRootProps()} >
       <input {...getInputProps()} />
       <DropContainer isActive={isDragActive}>
-        <i className="nc-icon x3 nc-layers-3" style={{ color: '#fff' }} />
-        <p style={{ color: '#fff', margin: '1em' }}>{text}</p>
-        <Button color="primary">Choose File</Button>
+        <i
+          className={classNames(
+            'nc-icon x3 nc-layers-3',
+            {
+              'text-dark': (theme !== ''),
+              'text-white': (theme === '')
+            }
+          )}
+        />
+        <p
+          className={classNames('m-4', {
+            'text-dark': (theme !== ''),
+            'text-white': (theme === '')
+          })}
+        >
+          {text}
+        </p>
+        <Button
+          color={classNames({
+            'primary': (theme === ''),
+            'success': (theme !== '')
+          })}
+        >
+          Choose File
+        </Button>
       </DropContainer>
     </ParentContainer>
   )
