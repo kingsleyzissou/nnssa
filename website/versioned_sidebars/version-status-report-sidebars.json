@@ -1,0 +1,103 @@
+{
+  "version-status-report/someSidebar": [
+    {
+      "collapsed": true,
+      "type": "category",
+      "label": "Introduction",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-status-report/introduction"
+        },
+        {
+          "type": "doc",
+          "id": "version-status-report/aims"
+        }
+      ]
+    },
+    {
+      "collapsed": true,
+      "type": "category",
+      "label": "Digital Signal Processing",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-status-report/frequency"
+        },
+        {
+          "type": "doc",
+          "id": "version-status-report/sr"
+        },
+        {
+          "type": "doc",
+          "id": "version-status-report/time-domain"
+        },
+        {
+          "type": "doc",
+          "id": "version-status-report/frequency-domain"
+        },
+        {
+          "type": "doc",
+          "id": "version-status-report/time-frequency"
+        },
+        {
+          "type": "doc",
+          "id": "version-status-report/fourier-transforms"
+        },
+        {
+          "type": "doc",
+          "id": "version-status-report/mel-scale"
+        },
+        {
+          "type": "doc",
+          "id": "version-status-report/spectrograms"
+        }
+      ]
+    },
+    {
+      "collapsed": true,
+      "type": "category",
+      "label": "Artificial Intelligence",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-status-report/ai"
+        },
+        {
+          "type": "doc",
+          "id": "version-status-report/ml"
+        },
+        {
+          "type": "doc",
+          "id": "version-status-report/neural"
+        },
+        {
+          "type": "doc",
+          "id": "version-status-report/cnn"
+        }
+      ]
+    },
+    {
+      "collapsed": true,
+      "type": "category",
+      "label": "Analysis",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-status-report/compression-analysis"
+        }
+      ]
+    },
+    {
+      "collapsed": true,
+      "type": "category",
+      "label": "References",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-status-report/references"
+        }
+      ]
+    }
+  ]
+}
