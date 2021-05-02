@@ -1,5 +1,9 @@
 import Loader from 'react-loader-spinner';
 
+/**
+ * React Loading state component
+ * 
+ */
 export function Loading({ status, step, message }) {
   const [first, second] = step;
   return (

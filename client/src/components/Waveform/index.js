@@ -15,6 +15,11 @@ const Wave = styled.div`
   position: 'relative';
 `;
 
+/**
+ * Waveform display component for displaying and playing
+ * back the audio from an S3 bucket
+ * 
+ */
 export function WaveForm({ url, result }) {
 
   const waveform = useRef(null);
@@ -23,6 +28,7 @@ export function WaveForm({ url, result }) {
   const createMarkers = useCreateMarkers();
   const { theme } = useContext(ThemeContext);
 
+  // create the waveform
   const create = useCallback(() => {
     wavesurfer.current = WaveSurfer.create({
       container: waveform.current,
@@ -36,24 +42,28 @@ export function WaveForm({ url, result }) {
     });
   }, [wavesurfer])
 
+  // load the song
   const load = useCallback(async () => {
     wavesurfer.current.load(url);
     const markers = createMarkers(result);
     markers.forEach(marker => wavesurfer.current.addMarker(marker));
   }, [wavesurfer, url, result, createMarkers]);
 
+  // check if the component has been mounted first
   useEffect(() => {
     if (waveform && waveform.current) {
       create();
     }
   }, [waveform, create])
 
+  // check if the component has been mounted first
   useEffect(() => {
     if (wavesurfer && wavesurfer.current) {
-      load()
+      load();
     }
   }, [wavesurfer, load])
 
+  // play/pause
   const togglePlayer = useCallback(() => {
     const action = playing ? 'pause' : 'play';
     wavesurfer.current[action]()

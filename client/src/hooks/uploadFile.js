@@ -1,5 +1,10 @@
 import { useCallback } from 'react';
 
+/**
+ * Custom React Hook to upload song to AWS S3 bucket
+ * 
+ * @returns callback function to use for song upload
+ */
 export function useUploadFile() {
   return useCallback(async (url, file) => {
     try {

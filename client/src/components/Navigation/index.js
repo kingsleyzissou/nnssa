@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import classNames from "classnames";
 import {
   Button,
@@ -14,6 +14,10 @@ import {
 } from "reactstrap";
 import { ThemeContext } from '../../contexts/ThemeContext';
 
+/**
+ * Custom Navbar component
+ * 
+ */
 export function Navigation() {
   const [collapseOpen, setcollapseOpen] = useState(false);
   const [color, setcolor] = useState("navbar-transparent");
@@ -27,7 +31,7 @@ export function Navigation() {
     changeTheme('');
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     window.addEventListener("resize", updateColor);
     return function cleanup() {
       window.removeEventListener("resize", updateColor);
