@@ -144,5 +144,3 @@ data/**/*.mp3
 data/**/*.wav
 data/**/*.txt
 data/**/*.npy
-
-models/*
