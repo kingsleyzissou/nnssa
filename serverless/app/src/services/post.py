@@ -9,6 +9,8 @@ import json
 sys.path.append('/mnt/access/pkgs')
 
 from nnssa.mqtt import connect
+from nnssa.evaluate import post_processing
+import peakutils
 import numpy as np
 
 def get_client():
@@ -40,10 +42,13 @@ def load_data(payload):
   return data, preds
 
 def calculate_sections(preds, beat_times):
-  sections = (np.where(preds == 1)[0]) * 4
-  sections = [p for p in sections if p < len(beat_times)]
-  sections = beat_times[sections]
-  return sections
+  p = post_processing(preds.squeeze())
+  peaks = peakutils.indexes(p, min_dist=4, thres=0.01)
+  ## weirdly need to multiply by 8 here instead of 4
+  ## not entirely sure why, possibly a minor mistake
+  ## earlier on in the chain
+  peaks = [(p * 8) for p in peaks if (p * 8) < len(beat_times)]
+  return beat_times[peaks]
 
 def save_results(filename, sections):
   path = f'/mnt/access/data/results/{filename}.npy'
@@ -56,7 +61,6 @@ def post(event, context):
   emit_update(filename)
   
   data, preds = load_data(payload)
-  preds = np.asarray([1 if x > 0.95 else 0 for x in preds])
   sections = calculate_sections(preds, data['times'])
   save_results(filename, sections)
   return {
