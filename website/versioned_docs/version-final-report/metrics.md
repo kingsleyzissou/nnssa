@@ -19,8 +19,10 @@ The simplest approach is to take the percentage of correct predictions from the 
 
 Precision is the measure of correctly predicted positive cases divided by the number of total positive cases (both true positives and false positives) (Ghoneim, 2019).
 
-## Recall
+## Recall
+
 The recall metric tells us the ratio of correctly predicted observations by the total number of positive cases (Ghoneim, 2019).
 
-## F-Score
+## F-Score
+
 The F1 score is the weighted average of the precision and the recall (Ghoneim, 2019). The F1-score was the main metric of evaluation for the model.

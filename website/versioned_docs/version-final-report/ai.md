@@ -11,7 +11,7 @@ _The sub fields of artificial intelligence_
 
 Modern computers are able to far outperform humans computationally, yet are not innately smart or intelligent. Artificial Intelligence is a field of study that seeks to create computers and algorithms that imitate the cognitive abilities of humans (Norvig, 2012). There are different means to achieving this goal and various subsets of artificial intelligence that aim to do this.
 
-## Neural Networks
+## Neural Networks
 
 ![Image of Deep Neural Network (IBM Cloud Education, 2020)][dnn]
 
@@ -21,7 +21,7 @@ Neural networks are made up of an input layer, hidden layers and an output layer
 
 [dnn]: https://1.cms.s81c.com/sites/default/files/2021-01-06/ICLH_Diagram_Batch_01_03-DeepNeuralNetwork-WHITEBG.png "Image of Deep Neural Network (IBM Cloud Education, 2020)"
 
-## Convolutional Neural Networks
+## Convolutional Neural Networks
 
 ![](../static/img/cnn.png)
 
