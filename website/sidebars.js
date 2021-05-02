@@ -2,25 +2,41 @@ module.exports = {
   someSidebar: {
     'Introduction': [
       'introduction',
-      'aims'
+      'abstract'
     ],
-    'Digital Signal Processing': [
-      'frequency',
-      'sr',
-      'time-domain',
-      'frequency-domain',
-      'time-frequency',
-      'fourier-transforms',
-      'mel-scale',
-      'spectrograms'
-    ],
-    'Artificial Intelligence': [
+    'Research': [
+      'music',
+      'dsp_101',
       'ai',
-      'ml',
-      'neural',
-      'cnn'
+      'dsp_201',
+      'metrics',
+      'imbalance',
+      'musicality'
     ],
-    'Analysis': ['compression-analysis'],
+    'Technologies': [
+      'tech'
+    ],
+    'Implementation': [
+      'design'
+    ],
+    'Results': ['results'],
+    // 'Digital Signal Processing': [
+    //   'frequency',
+    //   'sr',
+    //   'time-domain',
+    //   'frequency-domain',
+    //   'time-frequency',
+    //   'fourier-transforms',
+    //   'mel-scale',
+    //   'spectrograms'
+    // ],
+    // 'Artificial Intelligence': [
+    //   'ai',
+    //   'ml',
+    //   'neural',
+    //   'cnn'
+    // ],
+    // 'Analysis': ['compression-analysis'],
     'References': ['references']
   },
 };

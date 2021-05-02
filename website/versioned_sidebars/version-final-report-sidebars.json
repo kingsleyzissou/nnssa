@@ -1,0 +1,98 @@
+{
+  "version-final-report/someSidebar": [
+    {
+      "collapsed": true,
+      "type": "category",
+      "label": "Introduction",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-final-report/introduction"
+        },
+        {
+          "type": "doc",
+          "id": "version-final-report/abstract"
+        }
+      ]
+    },
+    {
+      "collapsed": true,
+      "type": "category",
+      "label": "Research",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-final-report/music"
+        },
+        {
+          "type": "doc",
+          "id": "version-final-report/dsp_101"
+        },
+        {
+          "type": "doc",
+          "id": "version-final-report/ai"
+        },
+        {
+          "type": "doc",
+          "id": "version-final-report/dsp_201"
+        },
+        {
+          "type": "doc",
+          "id": "version-final-report/metrics"
+        },
+        {
+          "type": "doc",
+          "id": "version-final-report/imbalance"
+        },
+        {
+          "type": "doc",
+          "id": "version-final-report/musicality"
+        }
+      ]
+    },
+    {
+      "collapsed": true,
+      "type": "category",
+      "label": "Technologies",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-final-report/tech"
+        }
+      ]
+    },
+    {
+      "collapsed": true,
+      "type": "category",
+      "label": "Implementation",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-final-report/design"
+        }
+      ]
+    },
+    {
+      "collapsed": true,
+      "type": "category",
+      "label": "Results",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-final-report/results"
+        }
+      ]
+    },
+    {
+      "collapsed": true,
+      "type": "category",
+      "label": "References",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-final-report/references"
+        }
+      ]
+    }
+  ]
+}
