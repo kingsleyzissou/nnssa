@@ -36,7 +36,7 @@ def emit_update(filename):
 
 def transform_beats(melspec):
   # get beat times
-  melspec = create_spec_windows(melspec, 8, 4)
+  melspec = create_spec_windows(melspec, 16, 4)
   return normalize(melspec)
 
 def load_data(path):
