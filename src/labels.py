@@ -35,6 +35,13 @@ BREAK = ['break', 'bre', 'break1', 'break2', 'break3']
 LIVE = ['applause', 'crowd_sounds', 'spoken_voice', 'stage_sounds', 'stage_speaking', 'voice']
 
 def clean_sections(section):
+    """
+    Filter out and limit song sections to
+    a predefined list of sections. To avoid too
+    many sections
+    :param sections: the name of the section to clean
+    :return: the cleaned song section name
+    """
     section = section.lower()
     if section in INTRO: return 'intro'
     if section in TRANSITION: return 'transition'
@@ -48,6 +55,14 @@ def clean_sections(section):
     return 'other'
 
 def load_annotations(row, clean=True, salami=False):
+    """
+    This function loads the song annotations from
+    file and cleans the song sections.
+    :param filename: pandas row
+    :param clean: clean the song sections or not
+    :param salami: salami or harmonix dataset?
+    :return: the song annotations
+    """
     rawpath = row.First_annotation if row.First_exists else row.Second_annotation
     filepath = os.path.join(rawpath)
     separator = ' ' if not salami else None

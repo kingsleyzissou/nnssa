@@ -3,6 +3,10 @@ import { Layout } from '../layouts/Layout';
 import { Dropzone } from '../components/Dropzone';
 import { Loading } from '../components/Loading';
 
+/**
+ * Landing page view
+ * 
+ */
 export function Landing() {
 
   const [loading, setLoading] = useState({

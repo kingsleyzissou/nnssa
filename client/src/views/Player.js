@@ -2,6 +2,10 @@ import { useHistory } from 'react-router';
 import { WaveForm } from '../components/Waveform';
 import { Layout } from '../layouts/Layout';
 
+/**
+ * Results page view
+ * 
+ */
 export function Player() {
 
   const history = useHistory();

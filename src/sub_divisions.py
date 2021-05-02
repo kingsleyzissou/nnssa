@@ -15,8 +15,9 @@ def pad_melspec(melspec, padding, subdivision):
     to set all the labels with in that context window
     to positive
 
-    melspec: the melspect to be padded
-    padding: the amount by which we will pad the melspec
+    :param melspec: the melspect to be padded
+    :param padding: the amount by which we will pad the melspec
+    :return: a padded Mel spectrogram
     """
     n_mel_bands = melspec.shape[0]
     return np.hstack((
@@ -37,8 +38,9 @@ def subdivide_frames(shape, subdivision):
     we also pad the number of bars so it is a rounded
     number
 
-    shape: the shape of the object as is
-    subdivision: how the labels will be subdivided
+    :param shape: the shape of the object as is
+    :param subdivision: how the labels will be subdivided
+    :return: the shape by which to make the subdivisions
     """
     shape = int(shape / subdivision)
     if subdivision == 1:
@@ -53,10 +55,11 @@ def subdivide_labels(row, padding, subdivision=0, sr=SR, hop_length=HOP_SIZE):
     Polymorphic function to subdivide the labels so they match
     the size and shape of the input/features
 
-    row: pandas row
-    shape_field: the name of the field to be manipulated
-    padding: amount of padding to add to the labels
-    subdivision: 0 for frames, 1 for beats, 4 for bars
+    :param row: pandas row
+    :param shape_field: the name of the field to be manipulated
+    :param padding: amount of padding to add to the labels
+    :param subdivision: 0 for frames, 1 for beats, 4 for bars
+    :return: the musically sub divided labels
     """
     labels = np.zeros(row['Sub_Divisions'].shape[0])
     segment_frames = librosa.time_to_frames(
@@ -79,9 +82,10 @@ def create_spec_windows(melspec, window, subdivision=1):
     This method is polymorphic in that it can subdived our melspectrograms
     into windows for frames, beats & bar subdivisions
 
-    melspec: melspectrogram to be chunked
-    window: the size of the window to chunk the melspectrograms
-    subdivision: 1 for frames & beats, 4 for bars
+    :param melspec: melspectrogram to be chunked
+    :param window: the size of the window to chunk the melspectrograms
+    :param subdivision: 1 for frames & beats, 4 for bars
+    :return: the musically sub divied Mel spectrogram
     """
     subdivisions = subdivide_frames(melspec.shape[1], subdivision)
     padded_melspec = pad_melspec(melspec, window, subdivision)
@@ -104,7 +108,8 @@ def normalize(melspec):
     deviation is 1. This is to ensure that very large values aren't
     overly represented in the data
 
-    melspec: the melspectrogram to be normalized
+    :param melspec: the Mels pectrogram to be normalized
+    :return: normalized Mel spectrogram
     """
     shape = melspec.shape
     scaler = StandardScaler()
